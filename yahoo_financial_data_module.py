@@ -15,9 +15,9 @@ class Ticker:
         stats_page_dfs.columns = ['field_name','value']
         return stats_page_dfs.pivot(columns='field_name').fillna(method='bfill').iloc[0]
 
-    def get_historical_stock_price(self):
+    def get_historical_stock_price(self,period = '1d', interval = '5m'):
         ticker_data = yfinance.Ticker(self.ticker)
-        return ticker_data.history(period='1d',interval='5m')
+        return ticker_data.history(period = period,interval = interval)
 
     def get_profile_data(self):
         prof_query = "https://in.finance.yahoo.com/quote/{0}/profile?p={0}".format(self.ticker)
