@@ -10,4 +10,12 @@ def marubozu_candlestick(price_dict,tolerance=None):
         return int((abs(price_dict['Close'] - price_dict['High']) + abs(price_dict['Open'] - price_dict['Low'])) <= tolerance)
     return - int((abs(price_dict['Open'] - price_dict['High']) + abs(price_dict['Close'] - price_dict['Low']) <= tolerance))
 
-ticker_data['marubozu_pattern'] = ticker_data.apply(marubozu_candlestick,axis=1)
+# ticker_data['marubozu_pattern'] = ticker_data.apply(marubozu_candlestick,axis=1)
+
+def hammer(df):
+    high, low, open_, close = df['high'],df['low'],df['open'],df['close']
+    
+    return (((high - low) > 3 * (open_ - close)) and ((close - low) / (.001 + high - low) > 0.6) and 
+                     ((open_ - low) / (.001 + high - low) > 0.6))
+
+# ticker_data['hammer_pattern'] = ticker_data.apply(hammer,axis=1)
